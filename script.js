@@ -1,42 +1,51 @@
-var startBtn = document.getElementById("start-button");
-var titleText = document.getElementById("title-text");
-var paragraphText = document.getElementById('paragraph-text');
-var documentMain = document.querySelector('main');
+// Buttons
+var startBtn = document.getElementById('start-button');
+var answerButton1 = document.getElementById('button-1');
+var answerButton2 = document.getElementById('button-2');
+var answerButton3 = document.getElementById('button-3');
+var answerButton4 = document.getElementById('button-4');
+
+// Divs
 var startDiv = document.getElementById('start-div');
+var questionDiv = document.getElementById('question-div');
 
-var answerBtn1 = document.createElement('button');
-var answerBtn2 = document.createElement('button');
-var answerBtn3 = document.createElement('button');
-var answerBtn4 = document.createElement('button');
-
+// Object containing all questions and answer choices
 var quizQuestions = {
-    'question-1' : {
+    'question-0' : {
         'question': 'Commonly used data types do NOT inlude:',
-        'answer-1': 'booleans',
-        'answer-2': 'strings',
-        'answer-3': 'alerts',
-        'answer-4': 'numbers',
+        'answers' : ['Booleans', 'Numbers','Alerts','Strings'],
+        'correct' : 'Alerts'
     },
-    'question-2' : {
+    'question-1' : {
         'question': 'A question',
-        'answer-1': 'Lerp',
-        'answer-2': 'Derp',
-        'answer-3': 'Perp',
-        'answer-4': 'flerp',
+        'answers' : ['flerp','derp','lerp','gerp'],
+        'correct' : 'derp',
     }
 }
 
 startBtn.addEventListener('click', function() {
-    // Get question from quizQuestion object
-    titleText.innerText = quizQuestions['question-1']['question'];
+    startQuiz();
+});
 
-    // Assign answer options to buttons
-    answerBtn1.innerText = quizQuestions['question-1']['answer-1'];
-    answerBtn2.innerText = quizQuestions['question-1']['answer-2'];
-    answerBtn3.innerText = quizQuestions['question-1']['answer-3'];
-    answerBtn4.innerText = quizQuestions['question-1']['answer-4'];
-
-    // Hide unwanted elements from DOM
+function startQuiz() {
+    // Hide start div, show question div
     startDiv.setAttribute('class', 'container hidden');
+    questionDiv.setAttribute('class','container');
 
-})
+    var questionText = document.getElementById('question-text');
+
+    // Get questions and answer choices from quizQuestions object
+    for (var i=0; i< Object.values(quizQuestions).length;) {
+        questionText.innerText = quizQuestions['question-'+i]['question'];
+
+        answerButton1.innerText = quizQuestions['question-'+i]['answers'][0];
+        answerButton2.innerText = quizQuestions['question-'+i]['answers'][1];
+        answerButton3.innerText = quizQuestions['question-'+i]['answers'][2];
+        answerButton4.innerText = quizQuestions['question-'+i]['answers'][3];
+
+        answerButton1.addEventListener('click', function(i) {
+            return i++
+        })
+    };
+
+};
