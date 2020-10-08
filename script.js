@@ -25,26 +25,40 @@ var timeLeft = 10;
 var questionNumber = 0;
 var yourScore = 0;
 
+// Check if local storage has high scores, if not create high scores
+var highScore;
 
-// Object containing all questions and answer choices
-var quizQuestions = {
-    'question-0': {
+if (localStorage.getItem('high scores')) {
+    highScore = JSON.parse(localStorage.getItem('high scores'));
+} else {
+    highScore = {
+        'names': [],
+        'scores': [],
+    };
+}
+
+
+// Array containing all questions and answer choices
+var quizQuestions = [
+    {
         'question': 'Commonly used data types do NOT inlude:',
         'answers': ['Booleans', 'Numbers', 'Alerts', 'Strings'],
         'correct': 'Alerts'
     },
-    'question-1': {
+    {
         'question': 'A question',
         'answers': ['flerp', 'derp', 'lerp', 'gerp'],
         'correct': 'derp',
     },
-    'question-2': {
+    {
         'question': 'A question',
         'answers': ['flerp', 'derp', 'lerp', 'gerp'],
         'correct': 'derp',
     }
-}
+]
 
+// WHEN I click the start button
+// THEN a timer starts and I am presented with a question
 //Starts the quiz
 startBtn.addEventListener('click', function () {
     startQuiz();
@@ -55,15 +69,19 @@ function startQuiz() {
     startDiv.setAttribute('class', 'container hidden');
     questionDiv.setAttribute('class', 'container');
 
-
     questionDiv.addEventListener('click', function (event) {
+        // WHEN I answer a question
+        // THEN I am presented with another question
         // only apply listener to buttons
         if (event.target.matches('button')) {
             // if correct answer is chosen
-            if (event.target.innerText == quizQuestions['question-' + questionNumber]['correct']) {
+            if (event.target.innerText == quizQuestions[questionNumber]['correct']) {
+                // Score up 1, and avance the question
                 yourScore++;
                 questionNumber++;
             } else {
+                // WHEN I answer a question incorrectly
+                // THEN time is subtracted from the clock
                 timeLeft--;
                 questionNumber++;
             };
@@ -75,16 +93,17 @@ function startQuiz() {
         timeLeft--;
 
         // Render question and answer choices
-        questionText.innerText = quizQuestions['question-' + questionNumber]['question'];
+        questionText.innerText = quizQuestions[questionNumber]['question'];
 
-        answerButton1.innerText = quizQuestions['question-' + questionNumber]['answers'][0];
-        answerButton2.innerText = quizQuestions['question-' + questionNumber]['answers'][1];
-        answerButton3.innerText = quizQuestions['question-' + questionNumber]['answers'][2];
-        answerButton4.innerText = quizQuestions['question-' + questionNumber]['answers'][3];
+        answerButton1.innerText = quizQuestions[questionNumber]['answers'][0];
+        answerButton2.innerText = quizQuestions[questionNumber]['answers'][1];
+        answerButton3.innerText = quizQuestions[questionNumber]['answers'][2];
+        answerButton4.innerText = quizQuestions[questionNumber]['answers'][3];
 
-        // when timer ends, get rid of time element //TO DO - OR if question number == 0
-        // Display all done div and hide questions div
-        if (timeLeft <= 0) {
+        // WHEN all questions are answered or the timer reaches 0
+        // THEN the game is over
+        //Display all done div and hide questions div
+        if (timeLeft <= 0 || questionNumber === quizQuestions.length - 1) {
             timerEl.textContent = "";
             clearInterval(timeInterval);
             allDone();
@@ -92,6 +111,10 @@ function startQuiz() {
 
     }, 1000);
 
+};
+
+function displayQuestion(currentQuestion) {
+    console.log(currentQuestion);
 };
 
 function allDone() {
@@ -103,20 +126,18 @@ function allDone() {
     yourScoreEl.innerText = yourScore;
 
     // Event listener 
+    //     WHEN the game is over
+    // THEN I can save my initials and score
     userHighScoreForm.addEventListener('click', function (event) {
-        
-        if (event.target.matches('button')) {
+        event.preventDefault();
 
-            // Get user's anme from input field
+        if (event.target.matches('button')) {
             var userName = userNameEl.value;
-            // Save user data to local storage
-            localStorage.setItem(userName + " data", JSON.stringify({
-                'name' : userName,
-                'score' : yourScore,
-            }));
-        
-            // Stop input element from redirecting 
-            event.preventDefault();
+
+            highScore['names'].push(userName);
+            highScore['scores'].push(yourScore);
+
+            localStorage.setItem('high scores', JSON.stringify(highScore));
 
             showHighScores();
         };
@@ -130,16 +151,19 @@ function showHighScores() {
     questionDiv.setAttribute('class', 'hidden');
     startDiv.setAttribute('class', 'hidden');
     allDoneDiv.setAttribute('class', 'hidden');
-    highScoresDiv.setAttribute('class','container');
+    highScoresDiv.setAttribute('class', 'container');
 
     // Get high scores from local storage
-    
+
+
     // Iterate through high scores
 
     // Generate a list of high scores
-    var li = document.createElement('li');
-    li.innerText = "Hello";
-    highScoresListEl.appendChild(li);
+    for (var i = 0; i < highScore.names.length; i++) {
+        var li = document.createElement('li');
+        li.innerText = "Name: " + highScore.names[i] + " | Score: " + highScore.scores[i];
+        highScoresListEl.appendChild(li);
+    };
 
     // if there's time: arrange all high scores by score and only select top 5 or 10
 }
