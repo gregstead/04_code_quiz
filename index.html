@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
     <title>Code Quiz</title>
 </head>
+
 <body>
     <header>
         <h4>High Score</h4>
         <h4>Time: <span id="timer"></span></h4>
     </header>
     <main>
+        <!-- Start  -->
         <div id="start-div" class="container">
             <h1 id="title-text">Coding Quiz Challenge</h1>
-            <p id="paragraph-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita quod laudantium quaerat ad, ab qui quo asperiores, cupiditate delectus nesciunt, magni nisi repellendus doloribus nam distinctio dolorum? Quis, fugit recusandae?</p>
+            <p id="paragraph-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita quod laudantium
+                quaerat ad, ab qui quo asperiores, cupiditate delectus nesciunt, magni nisi repellendus doloribus nam
+                distinctio dolorum? Quis, fugit recusandae?</p>
             <div id="start-button">Start Quiz</div>
         </div>
+        <!-- Questions  -->
         <div id="question-div" class="container hidden">
             <h1 id="question-text"></h1>
             <button class="btn" id="button-1"></button>
@@ -24,20 +31,24 @@
             <button class="btn" id="button-3"></button>
             <button class="btn" id="button-4"></button>
         </div>
-        <div id="allDone-div" class="container hidden">
+        <!-- Add user name and high score -->
+        <form id="allDone-div" class="container hidden">
             <h1>All done!</h1>
-            <form action="none">
-                <p>Your score: <span id="your-score"></span></p>
-                <label for="user-name">Your name: <label>
-                    <input type="text" name="your-name" id="your-name" />
-                    <button type="submit">Submit</button>
-            </form>
-        </div>
+            <div id="add-user-high-score">
+                <p>Your score: <span id="your-score-element"></span></p>
+                <label for="user-name-element">Your name: <label>
+                        <input type="text" name="your-name" id="user-name-element" />
+                        <button type="submit-user-name">Submit</button>
+            </div>
+        </form>
+        <!-- High scores -->
         <div id="highscores-div" class="container hidden">
             <h1>High Scores:</h1>
 
         </div>
     </main>
+    <!-- Javascript -->
     <script src="./script.js"></script>
 </body>
+
 </html>

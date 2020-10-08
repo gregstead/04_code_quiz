@@ -5,15 +5,25 @@ var answerButton2 = document.getElementById('button-2');
 var answerButton3 = document.getElementById('button-3');
 var answerButton4 = document.getElementById('button-4');
 
+
 // Divs
 var startDiv = document.getElementById('start-div');
 var questionDiv = document.getElementById('question-div');
 var allDoneDiv = document.getElementById('allDone-div');
 var highScoresDiv = document.getElementById('highscores-div');
+var userHighScoreForm = document.getElementById('add-user-high-score');
 
 // Elements
 var timerEl = document.getElementById('timer');
 var questionText = document.getElementById('question-text');
+var userNameEl = document.getElementById('user-name-element');
+var yourScoreEl = document.getElementById('your-score-element');
+
+// Starting variables
+var timeLeft = 5;
+var questionNumber = 0;
+var yourScore = 0;
+
 
 // Object containing all questions and answer choices
 var quizQuestions = {
@@ -39,14 +49,14 @@ function startQuiz() {
     startDiv.setAttribute('class', 'container hidden');
     questionDiv.setAttribute('class', 'container');
 
-    // Start timer
-    var timeLeft = 5;
-    var questionNumber = 0;
-    var yourScore = 0;
+    // // Start timer
+    // var timeLeft = 5;
+    // var questionNumber = 0;
+    // var yourScore = 0;
 
-    questionDiv.addEventListener('click', function(event) {
+    questionDiv.addEventListener('click', function (event) {
         // only apply listener to buttons
-         if (event.target.matches('button')) {
+        if (event.target.matches('button')) {
             // if correct answer is chosen
             if (event.target.innerText == quizQuestions['question-' + questionNumber]['correct']) {
                 yourScore++;
@@ -55,13 +65,13 @@ function startQuiz() {
                 timeLeft--;
                 questionNumber++;
             };
-         };
+        };
     });
 
     var timeInterval = setInterval(function () {
         timerEl.textContent = timeLeft
         timeLeft--;
-        
+
         // Render question and answer choices
         questionText.innerText = quizQuestions['question-' + questionNumber]['question'];
 
@@ -70,7 +80,7 @@ function startQuiz() {
         answerButton3.innerText = quizQuestions['question-' + questionNumber]['answers'][2];
         answerButton4.innerText = quizQuestions['question-' + questionNumber]['answers'][3];
 
-        // when timer ends, get rid of time element 
+        // when timer ends, get rid of time element //TO DO - OR if question number == 0
         // Display all done div and hide questions div
         if (timeLeft == 0) {
             timerEl.textContent = "";
@@ -83,10 +93,20 @@ function startQuiz() {
 };
 
 function allDone() {
-    questionDiv.setAttribute('class','hidden');
+    questionDiv.setAttribute('class', 'hidden');
     allDoneDiv.setAttribute('class', 'container');
 
-    var allDoneText = document.getElementById('allDone-p');
-    allDoneText.textContent = 'Hello';
-    
+    yourScoreEl.innerText = yourScore;
+
+    // Event listener 
+    userHighScoreForm.addEventListener('click', function (event) {
+        if (event.target.matches('button')) {
+            var userName = userNameEl.value;
+            localStorage.setItem(userName + "'s score", yourScore);
+            console.log(event);
+            event.preventDefault();
+        };
+
+    });
+
 };
