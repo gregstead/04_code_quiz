@@ -8,6 +8,8 @@ var answerButton4 = document.getElementById('button-4');
 // Divs
 var startDiv = document.getElementById('start-div');
 var questionDiv = document.getElementById('question-div');
+var allDoneDiv = document.getElementById('allDone-div');
+var highScoresDiv = document.getElementById('highscores-div');
 
 // Elements
 var timerEl = document.getElementById('timer');
@@ -38,17 +40,20 @@ function startQuiz() {
     questionDiv.setAttribute('class', 'container');
 
     // Start timer
-    var timeLeft = 30;
-    var i = 0;
+    var timeLeft = 5;
+    var questionNumber = 0;
+    var yourScore = 0;
 
     questionDiv.addEventListener('click', function(event) {
+        // only apply listener to buttons
          if (event.target.matches('button')) {
-            if (event.target.innerText == quizQuestions['question-' + i]['correct']) {
-                console.log("yes");
-                i++;
+            // if correct answer is chosen
+            if (event.target.innerText == quizQuestions['question-' + questionNumber]['correct']) {
+                yourScore++;
+                questionNumber++;
             } else {
-                console.log("no");
-                i++;
+                timeLeft--;
+                questionNumber++;
             };
          };
     });
@@ -58,18 +63,30 @@ function startQuiz() {
         timeLeft--;
         
         // Render question and answer choices
-        questionText.innerText = quizQuestions['question-' + i]['question'];
+        questionText.innerText = quizQuestions['question-' + questionNumber]['question'];
 
-        answerButton1.innerText = quizQuestions['question-' + i]['answers'][0];
-        answerButton2.innerText = quizQuestions['question-' + i]['answers'][1];
-        answerButton3.innerText = quizQuestions['question-' + i]['answers'][2];
-        answerButton4.innerText = quizQuestions['question-' + i]['answers'][3]
+        answerButton1.innerText = quizQuestions['question-' + questionNumber]['answers'][0];
+        answerButton2.innerText = quizQuestions['question-' + questionNumber]['answers'][1];
+        answerButton3.innerText = quizQuestions['question-' + questionNumber]['answers'][2];
+        answerButton4.innerText = quizQuestions['question-' + questionNumber]['answers'][3];
 
-        if (timeLeft === 0) {
+        // when timer ends, get rid of time element 
+        // Display all done div and hide questions div
+        if (timeLeft == 0) {
             timerEl.textContent = "";
             clearInterval(timeInterval);
-        }
+            allDone();
+        };
 
     }, 1000);
 
+};
+
+function allDone() {
+    questionDiv.setAttribute('class','hidden');
+    allDoneDiv.setAttribute('class', 'container');
+
+    var allDoneText = document.getElementById('allDone-p');
+    allDoneText.textContent = 'Hello';
+    
 };
