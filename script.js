@@ -21,7 +21,7 @@ var yourScoreEl = document.getElementById('your-score-element');
 var highScoresListEl = document.getElementById('high-scores-list-element');
 
 // Starting variables
-var timeLeft = 5;
+var timeLeft = 10;
 var questionNumber = 0;
 var yourScore = 0;
 
@@ -34,6 +34,11 @@ var quizQuestions = {
         'correct': 'Alerts'
     },
     'question-1': {
+        'question': 'A question',
+        'answers': ['flerp', 'derp', 'lerp', 'gerp'],
+        'correct': 'derp',
+    },
+    'question-2': {
         'question': 'A question',
         'answers': ['flerp', 'derp', 'lerp', 'gerp'],
         'correct': 'derp',
@@ -50,10 +55,6 @@ function startQuiz() {
     startDiv.setAttribute('class', 'container hidden');
     questionDiv.setAttribute('class', 'container');
 
-    // // Start timer
-    // var timeLeft = 5;
-    // var questionNumber = 0;
-    // var yourScore = 0;
 
     questionDiv.addEventListener('click', function (event) {
         // only apply listener to buttons
@@ -83,7 +84,7 @@ function startQuiz() {
 
         // when timer ends, get rid of time element //TO DO - OR if question number == 0
         // Display all done div and hide questions div
-        if (timeLeft == 0) {
+        if (timeLeft <= 0) {
             timerEl.textContent = "";
             clearInterval(timeInterval);
             allDone();
