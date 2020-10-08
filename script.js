@@ -18,6 +18,7 @@ var timerEl = document.getElementById('timer');
 var questionText = document.getElementById('question-text');
 var userNameEl = document.getElementById('user-name-element');
 var yourScoreEl = document.getElementById('your-score-element');
+var highScoresListEl = document.getElementById('high-scores-list-element');
 
 // Starting variables
 var timeLeft = 5;
@@ -93,20 +94,51 @@ function startQuiz() {
 };
 
 function allDone() {
+    // Show allDoneDiv and hide questionDov
     questionDiv.setAttribute('class', 'hidden');
     allDoneDiv.setAttribute('class', 'container');
 
+    // Display user's score
     yourScoreEl.innerText = yourScore;
 
     // Event listener 
     userHighScoreForm.addEventListener('click', function (event) {
+        
         if (event.target.matches('button')) {
+
+            // Get user's anme from input field
             var userName = userNameEl.value;
-            localStorage.setItem(userName + "'s score", yourScore);
-            console.log(event);
+            // Save user data to local storage
+            localStorage.setItem(userName + " data", JSON.stringify({
+                'name' : userName,
+                'score' : yourScore,
+            }));
+        
+            // Stop input element from redirecting 
             event.preventDefault();
+
+            showHighScores();
         };
 
     });
 
 };
+
+function showHighScores() {
+    // Hide all divs except high scores
+    questionDiv.setAttribute('class', 'hidden');
+    startDiv.setAttribute('class', 'hidden');
+    allDoneDiv.setAttribute('class', 'hidden');
+    highScoresDiv.setAttribute('class','container');
+
+    // Get high scores from local storage
+    
+    // Iterate through high scores
+
+    // Generate a list of high scores
+    var li = document.createElement('li');
+    li.innerText = "Hello";
+    highScoresListEl.appendChild(li);
+
+    // if there's time: arrange all high scores by score and only select top 5 or 10
+}
