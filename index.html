@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
+    
     <title>Code Quiz</title>
 </head>
 
 <body>
     <header>
-        <h4>High Scores</h4>
-        <h4>Time: <span id="timer"></span></h4>
+        <nav class="nav-bar navbar-light bg-dark">
+            <h4 class="navbar-brand text-light mx-3" id="high-scores-link">High Scores</h4>
+            <h4 class="navbar-text text-light float-right mx-3">Time: <span id="timer">00</span></h4>
+        </nav>
     </header>
     <main>
         <!-- Start  -->
@@ -21,15 +26,15 @@
             <p id="paragraph-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita quod laudantium
                 quaerat ad, ab qui quo asperiores, cupiditate delectus nesciunt, magni nisi repellendus doloribus nam
                 distinctio dolorum? Quis, fugit recusandae?</p>
-            <button id="start-button">Start Quiz</button>
+            <button class="btn btn-dark btn-sm my-1" id="start-button">Start Quiz</button>
         </div>
         <!-- Questions  -->
         <div id="question-div" class="container hidden">
             <h1 id="question-text"></h1>
-            <button class="btn" id="button-1"></button>
-            <button class="btn" id="button-2"></button>
-            <button class="btn" id="button-3"></button>
-            <button class="btn" id="button-4"></button>
+            <button class="btn btn-dark btn-sm my-1" id="button-1"></button><br>
+            <button class="btn btn-dark btn-sm my-1" id="button-2"></button><br>
+            <button class="btn btn-dark btn-sm my-1" id="button-3"></button><br>
+            <button class="btn btn-dark btn-sm my-1" id="button-4"></button><br>
         </div>
         <!-- Add user name and high score -->
         <form id="allDone-div" class="container hidden">
@@ -38,7 +43,7 @@
                 <p>Your final score: <span id="your-score-element"></span></p>
                 <label for="user-name-element">Enter your initials: <label>
                         <input type="text" name="your-name" id="user-name-element" />
-                        <button type="submit-user-name">Submit</button>
+                        <button class="btn btn-dark btn-sm my-1"type="submit-user-name">Submit</button>
             </div>
         </form>
         <!-- High scores -->

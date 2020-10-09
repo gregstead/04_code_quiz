@@ -1,9 +1,10 @@
-// Buttons
+// Buttons and links
 var startBtn = document.getElementById('start-button');
 var answerButton1 = document.getElementById('button-1');
 var answerButton2 = document.getElementById('button-2');
 var answerButton3 = document.getElementById('button-3');
 var answerButton4 = document.getElementById('button-4');
+var highScoreslink = document.getElementById('high-scores-link');
 
 
 // Divs
@@ -56,6 +57,10 @@ var quizQuestions = [
         'correct': 'derp',
     }
 ]
+
+highScoreslink.addEventListener('click', function() {
+    showHighScores();
+})
 
 // WHEN I click the start button
 // THEN a timer starts and I am presented with a question
@@ -147,11 +152,17 @@ function allDone() {
 };
 
 function showHighScores() {
+    // Reset highScoresListEl if navigating from high scores page
+    highScoresListEl.innerHTML = "";
+
     // Hide all divs except high scores
     questionDiv.setAttribute('class', 'hidden');
     startDiv.setAttribute('class', 'hidden');
     allDoneDiv.setAttribute('class', 'hidden');
     highScoresDiv.setAttribute('class', 'container');
+
+    // Clear timer if navigating from 
+    timerEl.textContent = ""
 
     // Get high scores from local storage
 
