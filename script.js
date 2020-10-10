@@ -47,15 +47,27 @@ var quizQuestions = [
         'correct': 'Alerts'
     },
     {
-        'question': 'A question',
-        'answers': ['flerp', 'derp', 'lerp', 'gerp'],
-        'correct': 'derp',
+        'question': 'The condition in an if/else statement is enclosed within _______.',
+        'answers': ['quotes', 'curly brackets', 'parenthesis', 'square brackets'],
+        'correct': 'curly brackets',
     },
     {
-        'question': 'A question',
-        'answers': ['flerp', 'derp', 'lerp', 'gerp'],
-        'correct': 'derp',
-    }
+        'question': 'Arrays in JavaScript can be used to store ________.',
+        'answers': ['numbers and strings', 'other arrays','booleans','all of the above'],
+        'correct': 'all of the above',
+    },
+    {
+        'question': 'String values must be enclosed within _______ when being assigned to variables.',
+        'answers': ['commas', 'curly brackets', 'quotes', 'parenthesis'],
+        'correct': 'quotess',
+    },
+    {
+        'question': 'A very useful tool used during development and debugging for printing content to the debugger is:',
+        'answers': ['JavaScript', 'terminal/bash', 'for loops', 'console.log'],
+        'correct': 'console.log',
+    },
+    
+
 ]
 
 highScoreslink.addEventListener('click', function() {
